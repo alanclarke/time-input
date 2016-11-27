@@ -14,14 +14,16 @@ var TimeInput = React.createClass({
   getDefaultProps () {
     return {
       value: '12:00 AM',
-      defaultValue: '00:00:00:000 AM'
+      defaultValue: '00:00:00:000 AM',
+      validate: validate
     }
   },
   propTypes: {
     className: React.PropTypes.string,
     value: React.PropTypes.string,
     onChange: React.PropTypes.func,
-    defaultValue: React.PropTypes.string
+    defaultValue: React.PropTypes.string,
+    validate: React.PropTypes.func
   },
   render () {
     let className = 'TimeInput'
@@ -174,7 +176,7 @@ var TimeInput = React.createClass({
       }
       newValue = value
     }
-    if (validate(newValue)) {
+    if (this.props.validate(newValue)) {
       this.onChange(newValue, end)
     } else {
       var caretIndex = this.props.value.length - (newValue.length - end)
